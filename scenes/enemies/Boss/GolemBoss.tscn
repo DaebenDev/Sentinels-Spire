@@ -1,0 +1,477 @@
+[gd_scene load_steps=28 format=2]
+
+[ext_resource path="res://resources/boss/PNG sheet/Character_sheet.png" type="Texture" id=1]
+[ext_resource path="res://resources/boss/weapon PNG/Laser_sheet.png" type="Texture" id=2]
+[ext_resource path="res://scenes/enemies/Boss/Death.gd" type="Script" id=3]
+[ext_resource path="res://scenes/enemies/Boss/FiniteStateMachine.gd" type="Script" id=4]
+[ext_resource path="res://scenes/enemies/Boss/Idle.gd" type="Script" id=5]
+[ext_resource path="res://scenes/enemies/Boss/Follow.gd" type="Script" id=6]
+[ext_resource path="res://scenes/enemies/Boss/GolemBoss.gd" type="Script" id=7]
+[ext_resource path="res://scenes/enemies/Boss/MeleeAttack.gd" type="Script" id=8]
+[ext_resource path="res://scenes/enemies/Boss/HomingMissle.gd" type="Script" id=9]
+[ext_resource path="res://scenes/enemies/Boss/bullet.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/enemies/Boss/Dash.gd" type="Script" id=11]
+[ext_resource path="res://scenes/enemies/Boss/LaserBeam.gd" type="Script" id=12]
+[ext_resource path="res://scenes/enemies/Boss/ArmorBuff.gd" type="Script" id=13]
+
+[sub_resource type="Animation" id=1]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Pivot/Laser:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Golem:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("BossSlained:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "armor_buff"
+length = 1.25013
+step = 0.125
+tracks/0/type = "value"
+tracks/0/path = NodePath("Golem:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1, 1.125 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 60, 61, 62, 63, 64, 65, 66, 67, 68, 69 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Pivot/Laser:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "block"
+length = 0.875125
+step = 0.125
+tracks/0/type = "value"
+tracks/0/path = NodePath("Golem:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 30, 31, 32, 33, 34, 35, 36 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Pivot/Laser:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "boss_slained"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("BossSlained:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1.5, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 2 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "death"
+length = 1.75013
+step = 0.125
+tracks/0/type = "value"
+tracks/0/path = NodePath("Golem:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1, 1.125, 1.25, 1.375, 1.5, 1.625 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Pivot/Laser:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "glowing"
+step = 0.125
+tracks/0/type = "value"
+tracks/0/path = NodePath("Golem:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 10, 11, 12, 13, 14, 15, 16, 17 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Pivot/Laser:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "idle"
+length = 0.500125
+loop = true
+step = 0.125
+tracks/0/type = "value"
+tracks/0/path = NodePath("Golem:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.125, 0.25, 0.375 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Pivot/Laser:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "laser"
+length = 120.008
+step = 0.125
+tracks/0/type = "value"
+tracks/0/path = NodePath("Pivot/Laser:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1, 1.125, 1.25, 1.375, 1.5, 1.625, 1.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 0 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("FiniteStateMachine/LaserBeam")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.625 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "set_target"
+} ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "laser_cast"
+length = 0.875125
+step = 0.125
+tracks/0/type = "value"
+tracks/0/path = NodePath("Golem:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 40, 41, 42, 43, 44, 45, 46 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Pivot/Laser:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "melee_attack"
+length = 0.875125
+loop = true
+step = 0.125
+tracks/0/type = "value"
+tracks/0/path = NodePath("Golem:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 40, 41, 42, 43, 44, 45, 46 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Pivot/Laser:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "ranged_attack"
+length = 1.12513
+step = 0.125
+tracks/0/type = "value"
+tracks/0/path = NodePath("Golem:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 20, 21, 22, 23, 24, 25, 26, 27, 28 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Pivot/Laser:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="StyleBoxFlat" id=14]
+
+[sub_resource type="CapsuleShape2D" id=12]
+radius = 14.0
+
+[sub_resource type="CircleShape2D" id=13]
+radius = 304.746
+
+[node name="GolemBoss" type="KinematicBody2D"]
+position = Vector2( 39.0001, 64 )
+scale = Vector2( 1.1524, 1.10088 )
+collision_layer = 2
+collision_mask = 0
+script = ExtResource( 7 )
+
+[node name="Golem" type="Sprite" parent="."]
+position = Vector2( 0.867752, 0.90836 )
+texture = ExtResource( 1 )
+hframes = 10
+vframes = 10
+
+[node name="Pivot" type="Node2D" parent="."]
+position = Vector2( 3.47099, 1.81672 )
+
+[node name="Laser" type="Sprite" parent="Pivot"]
+position = Vector2( 97.1885, -3.8147e-06 )
+texture = ExtResource( 2 )
+vframes = 15
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "idle"
+anims/RESET = SubResource( 1 )
+anims/armor_buff = SubResource( 2 )
+anims/block = SubResource( 3 )
+anims/boss_slained = SubResource( 4 )
+anims/death = SubResource( 5 )
+anims/glowing = SubResource( 6 )
+anims/idle = SubResource( 7 )
+anims/laser = SubResource( 8 )
+anims/laser_cast = SubResource( 9 )
+anims/melee_attack = SubResource( 10 )
+anims/ranged_attack = SubResource( 11 )
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="ProgressBar" type="ProgressBar" parent="UI"]
+self_modulate = Color( 0.694118, 0.333333, 0.333333, 1 )
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -86.0
+margin_top = -20.0
+margin_right = 87.0
+margin_bottom = -3.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_styles/bg = SubResource( 14 )
+value = 1.0
+
+[node name="Label" type="Label" parent="UI/ProgressBar"]
+anchor_left = -0.265896
+anchor_top = -0.588235
+anchor_right = -0.265896
+anchor_bottom = -0.588235
+margin_left = 85.0
+margin_top = -6.0
+margin_right = 175.0
+margin_bottom = 8.0
+text = "Crystal Golem"
+
+[node name="label" type="Label" parent="."]
+margin_left = -18.2229
+margin_top = -40.8764
+margin_right = 21.7771
+margin_bottom = -26.8764
+text = "debug"
+
+[node name="BossSlained" type="Label" parent="."]
+self_modulate = Color( 1, 1, 1, 0 )
+margin_left = -39.049
+margin_top = -46.3266
+margin_right = 42.951
+margin_bottom = -30.3266
+text = "Boss Slained"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -1.52588e-05, -1.81673 )
+shape = SubResource( 12 )
+
+[node name="FiniteStateMachine" type="Node2D" parent="."]
+position = Vector2( 0.867737, -3.8147e-06 )
+script = ExtResource( 4 )
+
+[node name="Idle" type="Node2D" parent="FiniteStateMachine"]
+script = ExtResource( 5 )
+
+[node name="Follow" type="Node2D" parent="FiniteStateMachine"]
+script = ExtResource( 6 )
+
+[node name="MeleeAttack" type="Node2D" parent="FiniteStateMachine"]
+script = ExtResource( 8 )
+
+[node name="HomingMissle" type="Node2D" parent="FiniteStateMachine"]
+script = ExtResource( 9 )
+bullet_node = ExtResource( 10 )
+
+[node name="LaserBeam" type="Node2D" parent="FiniteStateMachine"]
+script = ExtResource( 12 )
+
+[node name="ArmorBuff" type="Node2D" parent="FiniteStateMachine"]
+script = ExtResource( 13 )
+
+[node name="Dash" type="Node2D" parent="FiniteStateMachine"]
+script = ExtResource( 11 )
+
+[node name="Death" type="Node2D" parent="FiniteStateMachine"]
+script = ExtResource( 3 )
+
+[node name="PlayerDetection" type="Area2D" parent="."]
+position = Vector2( -357.515, -99.0117 )
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
+position = Vector2( 360.118, 99.0117 )
+shape = SubResource( 13 )
+one_way_collision_margin = 0.0
+
+[connection signal="body_entered" from="PlayerDetection" to="FiniteStateMachine/Idle" method="_on_PlayerDetection_body_entered"]

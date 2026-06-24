@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://MaxHealthGeneCore.gd" type="Script" id=1]
+[ext_resource path="res://data/gene_cores/GeneCores.tscn" type="PackedScene" id=2]
+
+[node name="MaxHealthGeneCore" instance=ExtResource( 2 )]
+script = ExtResource( 1 )
+max_health_boost = 10
+
+[node name="Sprite" parent="." index="1"]
+region_rect = Rect2( 191.626, 62.0831, 18.7363, 18.7363 )

@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://data/gene_cores/GeneCores.tscn" type="PackedScene" id=1]
+[ext_resource path="res://data/gene_cores/HealGeneCore.gd" type="Script" id=2]
+
+[node name="HealGeneCore" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+health_boost = 10
+
+[node name="Sprite" parent="." index="1"]
+position = Vector2( -10, -11 )
+region_rect = Rect2( 177.614, 62.6517, 13.798, 17.9792 )

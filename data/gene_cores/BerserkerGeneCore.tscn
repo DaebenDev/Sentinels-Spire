@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://BerserkerGeneCore.gd" type="Script" id=1]
+[ext_resource path="res://data/gene_cores/GeneCores.tscn" type="PackedScene" id=2]
+
+[node name="BerserkerGeneCore" instance=ExtResource( 2 )]
+script = ExtResource( 1 )
+damage_multiplier = 1.5
+
+[node name="Sprite" parent="." index="1"]
+region_rect = Rect2( 160.82, 160.234, 15.4914, 17.8746 )

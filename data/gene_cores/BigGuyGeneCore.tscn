@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://data/gene_cores/GeneCores.tscn" type="PackedScene" id=1]
+[ext_resource path="res://data/gene_cores/BigGuyGeneCore.gd" type="Script" id=2]
+
+[node name="BigGuyGeneCore" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+scale_boost = 0.5
+hitbox_scale_factor = 1.5
+
+[node name="Sprite" parent="." index="1"]
+position = Vector2( -8, -9 )
+region_rect = Rect2( 113.819, 63.9793, 13.7235, 16.3514 )
