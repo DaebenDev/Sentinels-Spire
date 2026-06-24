@@ -1,0 +1,15 @@
+NavigationAgent2D
+Timer
+NavigationObstacle2D
+NavigationRegion2D
+Sprite2D
+AnimationPlayer
+Node2D
+CollisionShape2D
+StaticBody2D
+CollisionPolygon2D
+Area2D
+FiniteStateMachine
+TileMap
+AnimatedSprite2D
+CharacterBody2D

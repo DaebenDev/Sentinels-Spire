@@ -1,0 +1,9 @@
+res://data/enemies/mutant_beast.tres
+res://data/gene_cores/fast_reflexes.tres
+res://data/gene_cores/hardened_skin.tres
+res://data/gene_cores/sentinel_anti_speed.tres
+res://scenes/player/KnightBeta/enemy.tscn
+res://scenes/player/KnightBeta/flying_creature.tscn
+res://scenes/player/KnightBeta/Knigt_test.tscn
+res://scenes/player/KnightBeta/player.tscn
+res://scenes/world/stages/stage_1.tscn
